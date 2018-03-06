@@ -31,7 +31,7 @@ In other words, your spreadsheet should look like this:
 
 As you can see, there are two lines for SA1 3100103, as it is split between districts. The third column details the absolute population in each part, and the fourth column details the proportion. The header names aren't important, but the column order is. 
 
-You're pretty much on your own for generating this spreadsheet, as I expect the various state electoral commissions all present the requisite data in different ways. A Queensland one is included (the above example is its first 10 lines). 
+You're pretty much on your own for generating this spreadsheet, as I expect the various state electoral commissions all present the requisite data in different ways. The above example is the first 10 lines of my Queensland one. 
 
 Things that will probably help:
 
