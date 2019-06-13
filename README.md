@@ -1,5 +1,9 @@
 # Senate N-Party-Preferred Analysis
 
+## Caveat
+
+This is for 2016 data only. The AEC is using a new spreadsheet layout in 2019 (which is much easier to read manually, incidentally) and I don't yet have a timeline for when I'll support that.
+
 ## Requirements
 
 - A working Python 3 install, preferably 3.5 or better. 
