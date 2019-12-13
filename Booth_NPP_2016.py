@@ -46,7 +46,7 @@ with open(POLLING_PLACES_PATH) as boothscsv:
                                                                            boothrow['Latitude'], boothrow['Longitude']] + [0]*total_combos
 
 #with open(newpollingplacesfn, 'w') as fp:
-#    print(*fieldnames, sep=',', file=fp, flush=True)    
+#    print(*fieldnames, sep=',', file=fp, flush=True)
 
 print("*** Distributing Preferences ***", file=sys.stderr)
 
@@ -54,7 +54,7 @@ print("*** Distributing Preferences ***", file=sys.stderr)
 with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
 
     allrows = [row for row in prefscsv]
-    
+
     prefsreader = csv.DictReader(allrows)
 
     progress = 0
@@ -76,13 +76,13 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
 
         if divnm[0] == '-':
             continue
-        
+
         seq = str(prefrow['Preferences']).split(',')
 
         # Need to convert all to ints and fill in empties
 
         seq_ints = [len(seq)] * len(seq)
-        
+
         for i in range(len(seq)):
             if seq[i].isnumeric():
                 seq_ints[i] = int(seq[i])
@@ -97,7 +97,7 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
         for i in PARTIES:
             best[i] = len(seq) + 1
 
-        for p in PARTIES:        
+        for p in PARTIES:
             for i in PARTIES[p]:
                 if seq_ints[i-1] < best[p]:
                     best[p] = seq_ints[i-1]
@@ -106,7 +106,7 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
 
 #        print(order)
 
-        
+
         # Now we test. Exploit the requirements of optional preferential:
         #    items may only be ranked equal-last.
 
@@ -172,20 +172,7 @@ with open(npp_fn, 'w') as fp:
     print(*(fieldnames + combinations + ["Total"]), sep=',', file=fp, flush=True)
 
     for ids in booths.keys():
-        
+
         print(*booths[ids], sep=',', file=fp)
 
 print("*** Done! ***", file=sys.stderr)
-
-
-
-
-        
-        
-
-        
-            
-        
-
-                        
-

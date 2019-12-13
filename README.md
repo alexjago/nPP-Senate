@@ -1,8 +1,10 @@
 # Senate N-Party-Preferred Analysis
 
-## Caveat
+## 2019 update
 
-This is for 2016 data only. The AEC is using a new spreadsheet layout in 2019 (which is much easier to read manually, incidentally) and I don't yet have a timeline for when I'll support that.
+The AEC have changed a few aspects of their spreadsheets and so there are updated new editions of some files: `config2019.py` and `Booth_NPP_2019.py`.
+
+Subsequent scripts should function *almost* unchanged: they'll probably need modification to use the correct version of the `config` file.
 
 ## Requirements
 
@@ -50,16 +52,12 @@ Things that will probably help:
 
 Zeroth, ensure that that everything exists, is uncorrupted, and that all your spreadsheets are in CSV format.
 
-First, edit `config.py` to update the paths to the three AEC spreadsheets described in **NPP distribution** and to the SA1-to-districts spreadsheet described in **SA1 Projection & district aggregation**.
+First, edit `configYYYY.py` to update the paths to the three AEC spreadsheets described in **NPP distribution** and to the SA1-to-districts spreadsheet described in **SA1 Projection & district aggregation**.
 
-Second, run `Booth_NPP.py` to generate `{State}/NPP_Booths.csv`. A couple of minutes later, you'll have a spreadsheet where each row represents a polling place, and (most of) the columns represent the number of ballots cast matching a preference order. Absents, postals, declaration pre-polls and provisionals have been aggregated. There's also a "total" column.
+Second, run `Booth_NPP_YYYY.py` to generate `{State}/NPP_Booths.csv`. A couple of minutes later, you'll have a spreadsheet where each row represents a polling place, and (most of) the columns represent the number of ballots cast matching a preference order. Absents, postals, declaration pre-polls and provisionals have been aggregated. There's also a "total" column.
 
 Third, run `SA1s_Multiplier.py` to generate `{State}/NPP_SA1s.csv`. Each row will be for a specific SA1/Booth/Division combination. Again, most of the columns will list the number of ballots cast matching a preference order, except that they'll be fractions of a vote now.
 
 Fourth, to perform district aggregation, run `SA1s_Aggregator.py` to generate `{State}/District_NPPS.csv`. Each row represents a district named in the SA1-to-districts spreadsheet. Columns (mostly) list the expected numbers of ballots cast in each district that match the preference order in the columns' headings.
 
 Having done all that, you can [simulate elections](https://abjago.net/4PP-QLD-projections-from-senate-results/predictor.html) with accurate knowledge of how people preferenced!
-
-## 2019 update
-
-The AEC has changed a few aspects of their spreadsheets and so we have updated new editions of some files: `config2019.py` and `Booth_NPP_2019.py`. Subsequent scripts should function unchanged. 

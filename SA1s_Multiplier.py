@@ -11,6 +11,7 @@ import itertools
 import os
 import sys
 
+# NB update relevant config file name here
 from config import *
 
 npp_fn = os.path.join(OUTPUTDIR, STATE, NPP_BOOTHS_FN)
@@ -73,7 +74,7 @@ with open(SA1S_BREAKDOWN_PATH) as sa1scsv:
                 bob.append(float(srow["votes"]) * float(db[i]) / float(db[-1]))
             except ZeroDivisionError:
                 bob.append(0.0)
-        
+
         lines.append(bob)
 
 ##        print("bob:\t", bob)
@@ -116,9 +117,3 @@ with open(sa1s_prefs_fn, 'w') as fp:
         print(*line, sep=',', file=fp)
 
 print("Progress:\t Done!", file=sys.stderr)
-
-    
-
-
-
-    

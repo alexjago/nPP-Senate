@@ -10,6 +10,7 @@ import csv
 import sys
 import os.path
 
+# NB use relevant config file name here
 from config import *
 
 
@@ -30,9 +31,9 @@ outfieldnames = []
 print("Progress:\t loading", file=sys.stderr)
 
 with open(sa1s_prefs_fn) as consol_sa1s_fp:
-    
+
     consolreader = csv.reader(consol_sa1s_fp)
-    
+
     outfieldnames = next(consolreader)
 
     for row in consolreader:
@@ -51,8 +52,8 @@ with open(sa1s_dists_fn) as ecq_sa1s_fp:
             aec_sa1 = aec_sa1s[i[0]]
         except KeyError:
             continue
-        
-        try:                        
+
+        try:
             multiplier = float(i[2])/float(aec_sa1[-1])
         except ZeroDivisionError:
             ecq_total = 0.0
@@ -78,11 +79,3 @@ with open(output_fn, 'w') as output_fp:
         print(*d, sep = ",", file = output_fp)
 
 print("Progress:\t done", file=sys.stderr)
-
-    
-        
-
-        
-    
-    
-
