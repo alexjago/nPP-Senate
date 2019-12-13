@@ -1,4 +1,6 @@
 .DS_Store
 *.csv
 *.zip
+*.ods
 __pycache__
+*.~lock*
