@@ -88,6 +88,18 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
 
     # 2019 problems: we used to index by candidate numbers.
     # We still can but we'll need to rewrite PARTIES a bit
+    # also want to properly deal with ATL/BTL
+
+    # first figure out which are BTLs and ATLs
+    ATL_start = 6 # relative to
+    BTL_start = 0 # relative to ATL_start
+    for i in prefsreader.fieldnames[ATL_start+1:]:
+        # find the second "A:" or if there are none, then presumably we started at "UG:""
+        #print(i)
+        if i.startswith("A:"):
+            BTL_start = prefsreader.fieldnames.index(i) - ATL_start
+            break
+
 
     # Create candidate number index
     cand_nums = {prefsreader.fieldnames[5:][i]: i for i in range(len(prefsreader.fieldnames[5:]))}
@@ -98,13 +110,25 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
         GROUPS[p] = [cand_nums[c] for c in PARTIES[p]]
     #print(GROUPS)
 
+    GROUPS_ATL = {}
+    GROUPS_BTL = {}
+    for p in PARTIES.keys():
+        GROUPS_ATL[p] = []
+        GROUPS_BTL[p] = []
+        for c in PARTIES[p]:
+            if cand_nums[c] >= BTL_start:
+                GROUPS_BTL[p].append(cand_nums[c])
+            else:
+                GROUPS_ATL[p].append(cand_nums[c])
+
+
     # Iterate over all the rows of the main thing
     for prefrow in prefsreader:
         #print(prefrow)
         progress += 1
 
-#        if progress > 10:
-#            break
+        # if progress > 10:
+        #     exit()
 
         if (progress % 100000 == 0):
             if hasattr(sys.stderr, "isatty") and sys.stderr.isatty():
@@ -116,12 +140,12 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
         divnm = str(prefrow['Division'])
         boothnm = str(prefrow['Vote Collection Point Name'])
 
-        if divnm[0] == '-':
+        if divnm[0] == '-': # 2016 weirdness
             continue
 
         #seq = str(prefrow['Preferences']).split(',')
         # 2019 problems: dealing with the switchover
-        seq = list(prefrow.values())[6:]
+        seq = list(prefrow.values())[ATL_start:]
 
         # 2016: Need to convert all to ints and fill in empties
         # 2019: Should be all ints already, but empties need filling still
@@ -137,11 +161,18 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
 
         # Now to analyse 4PP. We categorise the preference sequence by its highest value for each group of candidates
 
-        best = {}
 
+        best = {}
         # first set 'best' to worse than worst for each party (best == 1)
         for i in GROUPS:
             best[i] = len(seq) + 1
+
+        # this should all take into account ATL vs BTL
+        is_BTL = (seq_ints[BTL_start:].count(1) == 1) and (seq_ints[BTL_start:].count(2) == 1) and \
+                    (seq_ints[BTL_start:].count(3) == 1) and (seq_ints[BTL_start:].count(4) == 1) and \
+                    (seq_ints[BTL_start:].count(5) == 1) and (seq_ints[BTL_start:].count(6) == 1)
+        ## ^ this seems like a lot but the short-circuits are friendly
+        GROUPS = GROUPS_BTL if is_BTL else GROUPS_ATL
 
         for p in GROUPS:
             for i in GROUPS[p]:
@@ -158,7 +189,10 @@ with open(FORMAL_PREFS_PATH, newline='') as prefscsv:
         if pref == "":
             pref = "None"
 
-#        print(pref)
+        # if is_BTL:
+        #     print(progress, divnm, boothnm)
+        #     print(seq_ints, pref)
+        #     exit()
 
         try:
             booths[divnm+boothnm][5 + combinations.index(pref)] += 1
