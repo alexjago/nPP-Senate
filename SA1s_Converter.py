@@ -57,7 +57,7 @@ with cli_args.infile as infile:
         old = r[0]
         corr = corrs[old]
         for new in corr:
-            sa1 = new[0]
+            sa1 = new[0] # now key by new ID
             dist = r[1]
             pop = float(r[2])*new[1]
             if sa1 not in intermediate: # double-layered defaultdict a bit much

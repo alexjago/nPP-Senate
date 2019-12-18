@@ -12,9 +12,10 @@ import os
 import sys
 
 # NB update relevant config file name here
-from config import *
+from config2019 import *
 
-npp_fn = os.path.join(OUTPUTDIR, STATE, NPP_BOOTHS_FN)
+# deal with 2016/2019 changes
+npp_fn = os.path.join(OUTPUTDIR, VARIANT, NPP_BOOTHS_FN) if VARIANT else os.path.join(OUTPUTDIR, STATE, NPP_BOOTHS_FN)
 
 # Generate booth data structure (combinations hardcoded):
 nppfields = ["ID", "Division", "Booth", "Latitude", "Longitude"]
@@ -58,7 +59,8 @@ with open(SA1S_BREAKDOWN_PATH) as sa1scsv:
 
     for srow in sa1sreader:
 
-        if not (srow["year"]=="2016" and srow["state_ab"]==STATE):
+        # deal with state weirdness
+        if not ((srow["year"] in ["2016", "2019"]) and srow["state_ab"]==STATE):
             continue
 
 ##        if (progress == 10):
@@ -108,7 +110,7 @@ outlines.sort()
 
 print("Progress:\t Writing File...", file=sys.stderr)
 
-sa1s_prefs_fn = os.path.join(OUTPUTDIR, STATE, SA1S_PREFS_FN)
+sa1s_prefs_fn = os.path.join(OUTPUTDIR, VARIANT, SA1S_PREFS_FN) if VARIANT else os.path.join(OUTPUTDIR, STATE, SA1S_PREFS_FN)
 
 with open(sa1s_prefs_fn, 'w') as fp:
     print(*(["SA1_id"] + boothsfields[5:]), sep=',', file=fp, flush=True)

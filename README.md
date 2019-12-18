@@ -37,7 +37,7 @@ In other words, your spreadsheet should look like this:
 
 As you can see, there are two lines for SA1 3100103, as it is split between districts. The third column details the absolute population in each part, and the fourth column details the proportion. The header names aren't important, but the column order is.
 
-You're pretty much on your own for generating this spreadsheet, as I expect the various state electoral commissions all present the requisite data in different ways. The above example is the first 10 lines of my Queensland one.
+You're pretty much on your own for generating this spreadsheet, as I expect the various state electoral commissions all present the requisite data in different ways. The above example is the first 10 lines of my Queensland one for 2016.
 
 Things that will probably help:
 
@@ -46,6 +46,15 @@ Things that will probably help:
 - The information made available as part of the last state redistribution
     - A shapefile or equivalent of all SA1s
     - A shapefile or equivalent of all the districts
+
+**Note that SA1s can change a bit after each census.** Your state electoral commission and the AEC will use the latest available SA1s, which don't always match - for example, the 2017 Qld redistribution and the 2016 federal election used the same SA1s, but those were updated for the 2019 federal election... and the 2017 data wasn't. Extract an SA1s correspondance table from its spreadsheet on the ABS site. When all is done, it should look a bit like this:
+
+| SA1_7DIGITCODE_2011 | SA1_7DIGITCODE_2016 | RATIO     |
+|---------------------|---------------------|-----------|
+| 1100101             | 1153965             | 1         |
+| 1100102             | 1153902             | 0.4439326 |
+| 1100102             | 1153962             | 0.5560674 |
+| 1100103             | 1153967             | 1         |
 
 
 ## How To
@@ -58,6 +67,8 @@ Second, run `Booth_NPP_YYYY.py` to generate `{State}/NPP_Booths.csv`. A couple o
 
 Third, run `SA1s_Multiplier.py` to generate `{State}/NPP_SA1s.csv`. Each row will be for a specific SA1/Booth/Division combination. Again, most of the columns will list the number of ballots cast matching a preference order, except that they'll be fractions of a vote now.
 
-Fourth, to perform district aggregation, run `SA1s_Aggregator.py` to generate `{State}/District_NPPS.csv`. Each row represents a district named in the SA1-to-districts spreadsheet. Columns (mostly) list the expected numbers of ballots cast in each district that match the preference order in the columns' headings.
+Third-and-a-half, run `SA1s_Converter.py correspondencefile [infile] [outfile]` if required. `outfile` is your new `SA1S_DISTS_PATH` for step 4.
+
+Fourth, to perform district aggregation, run `SA1s_Aggregator.py` to generate `{State}/District_NPPS.csv` (and optinally a JS version too for the web-based predictor). Each row represents a district named in the SA1-to-districts spreadsheet. Columns (mostly) list the expected numbers of ballots cast in each district that match the preference order in the columns' headings.
 
 Having done all that, you can [simulate elections](https://abjago.net/4PP-QLD-projections-from-senate-results/predictor.html) with accurate knowledge of how people preferenced!
