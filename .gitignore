@@ -4,3 +4,7 @@
 *.ods
 __pycache__
 *.~lock*
+output/
+experiments/
+*.pyz
+*.pyzw
