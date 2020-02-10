@@ -20,7 +20,7 @@ Big changes are happening!
 
 ### One thing to run it all
 
-There is now a unified program, titled simply `nparty` to deal with all aspects of the analysis. GUI is hopefully coming soon.
+There is now a unified program, titled simply `nparty` to deal with all aspects of the analysis. GUI is hopefully coming soon. [Download it here.](https://github.com/alexjago/nPP-Senate/releases/tag/v0.3)
 
 ### Better configuration
 
@@ -34,7 +34,7 @@ Provided that the AEC doesn't change the URLs, `nparty` knows how to download al
 
 ### Dealing with the 2016/2019 format change
 
-Instead of maintaining parallel analysis tools for two different data formats, there is now a tool
+Instead of maintaining parallel analysis tools for two different data formats, there is now a tool to upgrade the old data format to the new. 
 
 ### Predictor site
 
