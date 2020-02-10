@@ -63,7 +63,7 @@ To do anything more than party-preferred distribution at the federal booth level
 
 ### Configuration
 
-Please refer to `2019.cfg` for an example configuration file. You can hand-edit it if you choose.
+[Please refer to `2019.cfg` for an example configuration file.](https://github.com/alexjago/nPP-Senate/blob/master/2019.cfg) You can hand-edit your local copy if you choose.
 
 Configuration files are based around the concept of a "scenario", which combines:
 
