@@ -45,7 +45,7 @@ Still a work in progress.
 
 Before anything else, you'll need to ensure that you have Python installed. The minimum required version is 3.6.  
 
-You'll probably want to run the self-contained `nparty.pyz`. It's a command-line application. Generally, you'll invoke it as `python3 nparty.pyz *options*`; try `python3 nparty.pyz --help` for a usage summary. If you're on Mac or Linux you should be able to run `chmod +x nparty.pyz` to make it self-executing, then you can call it as `./nparty.pyz` instead.
+[You'll probably want to download and run `nparty.pyz`.](https://github.com/alexjago/nPP-Senate/releases/download/v0.3/nparty.pyz) It's a command-line application. Generally, you'll invoke it as `python3 nparty.pyz *options*`; try `python3 nparty.pyz --help` for a usage summary. If you're on Mac or Linux you should be able to run `chmod +x nparty.pyz` to make it self-executing, then you can call it as `./nparty.pyz` instead.
 
 Please note that subsequent parts of this guide will refer to the program simply as `nparty`.
 
